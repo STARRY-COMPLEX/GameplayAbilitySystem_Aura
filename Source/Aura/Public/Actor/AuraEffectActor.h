@@ -20,8 +20,8 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintCallable)
-	void ApplayEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+	void ApplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 	
-	UPROPERTY(EditAnywhere, Category = "Custom Property | Applied Effects")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Custom Property | Applied Effects")
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
 };
