@@ -36,7 +36,7 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 }
 
 void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallbackData& Data,
-	FEffectProperties& Props) const{
+	FEffectProperties& Props) {
 	// Source = causer of the effect, Target = target of the effect (owner of this AS)
 	
 	Props.EffectContextHandle = Data.EffectSpec.GetContext();

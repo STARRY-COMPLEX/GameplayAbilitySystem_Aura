@@ -17,7 +17,7 @@ USTRUCT()
 struct FEffectProperties{
 	GENERATED_BODY()
 	
-	FEffectProperties();
+	FEffectProperties(){};
 	
 	FGameplayEffectContextHandle EffectContextHandle;
 	
@@ -87,5 +87,5 @@ public:
 	
 private:
 	
-	void SetEffectProperties(const struct FGameplayEffectModCallbackData& Data, FEffectProperties& Propd) const;
+	void SetEffectProperties(const struct FGameplayEffectModCallbackData& Data, FEffectProperties& Props) ;
 };
