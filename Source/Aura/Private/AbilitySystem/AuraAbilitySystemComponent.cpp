@@ -13,6 +13,4 @@ void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* Ability
 	EffectSpec.GetAllAssetTags(TagContainer);
 	
 	EffectAssetTags.Broadcast(TagContainer);
-	
-	
 }
