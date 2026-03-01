@@ -6,6 +6,8 @@
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "AuraMenuWidgetController.generated.h"
 
+struct FGameplayAttribute;
+struct FGameplayTag;
 class UAttributeInfo;
 struct FAuraAttributeInfo;
 
@@ -26,4 +28,7 @@ public:
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | AttributeInfo")
 	TObjectPtr<UAttributeInfo> AttributeInfo;
+	
+private:
+	void BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const;
 };
