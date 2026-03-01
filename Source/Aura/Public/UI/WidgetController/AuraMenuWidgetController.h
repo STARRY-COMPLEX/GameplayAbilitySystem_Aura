@@ -6,7 +6,7 @@
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "AuraMenuWidgetController.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class AURA_API UAuraMenuWidgetController : public UAuraWidgetController
 {
 	GENERATED_BODY()
