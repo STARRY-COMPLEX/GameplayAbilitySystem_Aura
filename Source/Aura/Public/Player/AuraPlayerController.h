@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
+struct FGameplayTag;
+class UAuraInputConfig;
 class UInputMappingContext;
 class UInputAction;
 class IEnemyInterface;
@@ -35,4 +38,11 @@ private:
 	void CurserTrace();
 	IEnemyInterface* LastActor;
 	IEnemyInterface* ThisActor;
+	
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHold(FGameplayTag InputTag);
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Input")
+	TObjectPtr<UAuraInputConfig> InputConfig;
 };
