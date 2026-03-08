@@ -10,5 +10,9 @@ UCLASS()
 class AURA_API UAuraGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
+public:
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Input")
+	FGameplayTag StartupInputTag;
+	
 	
 };
