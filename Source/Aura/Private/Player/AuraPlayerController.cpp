@@ -4,14 +4,18 @@
 #include "Player/AuraPlayerController.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AuraGameplayTags.h"
 #include "EnhancedInputSubsystems.h"
+#include "MaterialHLSLTree.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
 AAuraPlayerController::AAuraPlayerController(){
 	bReplicates = true;
 	
+	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime){
@@ -84,7 +88,10 @@ void AAuraPlayerController::BeginPlay(){
 }
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag){
-	// GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
+	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)){
+		bTargeting = ThisActor ? true : false;
+		bAutoRunning = false;
+	}	
 }
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag){
@@ -94,9 +101,30 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag){
 }
 
 void AAuraPlayerController::AbilityInputTagHold(FGameplayTag InputTag){
-	if (GetASC() == nullptr) return;
+	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)){
+		if (GetASC()){
+			GetASC()->AbilityInputTagHold(InputTag);
+		}
+		return;
+	}
 	
-	GetASC()->AbilityInputTagHold(InputTag);
+	if (bTargeting){
+		if (GetASC()){
+			GetASC()->AbilityInputTagHold(InputTag);
+		}
+	}else{
+		FollowTime += GetWorld()->GetDeltaSeconds();
+		
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit)){
+			CashedDestination = Hit.ImpactPoint;
+		}
+		
+		if (APawn* ControlledPawn = GetPawn<APawn>()){
+			const FVector WorldDirection = (CashedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+			ControlledPawn->AddMovementInput(WorldDirection);
+		}
+	}
 }
 
 UAuraAbilitySystemComponent* AAuraPlayerController::GetASC(){
