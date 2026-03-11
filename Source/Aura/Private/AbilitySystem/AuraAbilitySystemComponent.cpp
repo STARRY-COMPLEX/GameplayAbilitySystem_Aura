@@ -8,7 +8,7 @@
 void UAuraAbilitySystemComponent::AbilityActorInfoSet(){
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::ClientEffectApplied);
 }
-
+	
 void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartAbilities){
 	for(const TSubclassOf<UGameplayAbility> AbilityClass : StartAbilities){
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
