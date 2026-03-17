@@ -36,6 +36,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Custom Property | Input")
 	TObjectPtr<UInputAction> MoveAction;
 	
+	UPROPERTY(EditAnywhere, Category = "Custom Property | Input")
+	TObjectPtr<UInputAction> ShiftAction;
+	
+	void ShiftPressed() { bShiftKeyDown = true; };
+	void ShiftReleased() { bShiftKeyDown = false; };
+	bool bShiftKeyDown = false;
+	
 	void Move(const FInputActionValue& InputActionValue);
 	void CurserTrace();
 	IEnemyInterface* LastActor;
