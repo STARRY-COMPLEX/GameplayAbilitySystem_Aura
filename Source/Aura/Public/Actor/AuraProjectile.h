@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffectTypes.h"
 #include "GameFramework/Actor.h"
 #include "AuraProjectile.generated.h"
 
@@ -21,6 +22,8 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 	
+	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true), Category = "Custom Property | HitEffect")
+	FGameplayEffectSpecHandle DamageEffectSpecHandle;
 protected:
 	virtual void BeginPlay() override;
 	virtual void Destroyed() override;
@@ -46,5 +49,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Custom Property | HitEffect")
 	TObjectPtr<USoundBase> LoopingSound;
 	
+	UPROPERTY()
 	TObjectPtr<UAudioComponent> LoopingSoundComponent;
 };
