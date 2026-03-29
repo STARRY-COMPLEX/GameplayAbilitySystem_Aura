@@ -75,6 +75,5 @@ void AAuraEnemy::InitAbilityActorInfo(){
 
 void AAuraEnemy::InitializeDefaultAttributes() const{
 	UAuraAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, AbilitySystemComponent);
-	UAuraAttributeSet* AuraAS = Cast<UAuraAttributeSet>(AttributeSet);
-	GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Blue, FString::Printf(TEXT("Strength: %f"), AuraAS->GetStrength()));
+	
 }
