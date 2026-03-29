@@ -21,7 +21,8 @@ class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInte
 public:
 	AAuraCharacterBase();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UAttributeSet* GetAttributeSet() const {return AttributeSet;};
+	UAttributeSet* GetAttributeSet() const {return AttributeSet;}
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 protected:
 	virtual void BeginPlay() override;
 	
@@ -54,7 +55,11 @@ protected:
 	virtual void InitializeDefaultAttributes() const;
 	
 	void AddCharacterAbilities();
+	
 private:
 	UPROPERTY(EditAnywhere, Category = "Custom Property | Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+	
+	UPROPERTY(EditAnywhere, Category = "Custom Property | Combat")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 };

@@ -49,9 +49,14 @@ public:
 	FGameplayTag InputTag_4;
 	
 	/**
-	 * 
+	 * Damage
 	 */
 	FGameplayTag Damage;
+	
+	/**
+	 * Hit React
+	 */
+	FGameplayTag Effects_HitReact;
 private:
 	static FAuraGameplayTags GameplayTags;
 };

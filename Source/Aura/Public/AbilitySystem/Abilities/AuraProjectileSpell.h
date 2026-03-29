@@ -24,4 +24,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category = "Custom Property | Projectile")
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
+	
+	
 };
