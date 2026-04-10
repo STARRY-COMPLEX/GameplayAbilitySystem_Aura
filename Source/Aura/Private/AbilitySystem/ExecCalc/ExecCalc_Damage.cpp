@@ -9,10 +9,12 @@
 
 struct AuraDamageStatics{
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorPenetration);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(BlockChance);
 	
 	AuraDamageStatics(){
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, Armor, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, ArmorPenetration, Source, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, BlockChance, Target, false);
 	}
 };
@@ -24,7 +26,9 @@ static const AuraDamageStatics& DamageStatics(){
 
 UExecCalc_Damage::UExecCalc_Damage(){
 	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef); 
+	RelevantAttributesToCapture.Add(DamageStatics().ArmorPenetrationDef);
 	RelevantAttributesToCapture.Add(DamageStatics().BlockChanceDef);
+	
 }
 
 void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -49,13 +53,27 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	float Damage = Spec.GetSetByCallerMagnitude(FAuraGameplayTags::Get().Damage);
 	
 	// Capture BlockChance On Target, and determine if there was a successful Block
-	// If Block, halve the damage.
 	float BlockChance = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().BlockChanceDef, EvaluationParameters, BlockChance);
 	BlockChance = FMath::Max<float>(BlockChance, 0.f);
 	
 	const bool bBlocked = FMath::RandRange(1.f, 100.f) < BlockChance;
+	
+	// If Block, halve the damage.
 	Damage = bBlocked ? Damage * 0.5f : Damage;
+	
+	float TargetArmor = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, TargetArmor);
+	TargetArmor = FMath::Max<float>(TargetArmor, 0.f);
+	
+	float SourceArmorPenetration = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorPenetrationDef, EvaluationParameters, SourceArmorPenetration);
+	SourceArmorPenetration = FMath::Max<float>(SourceArmorPenetration, 0.f);
+	
+	// ArmorPenetration ignores a percentage of the Target's Armor.
+	const float EffectArmor = TargetArmor * (100.f - SourceArmorPenetration * 0.25f) / 100.f;
+	// Armor ignores a percentage of incoming Damage.
+	Damage *= (100.f - EffectArmor * 0.333f) / 100.f;
 	
 	const FGameplayModifierEvaluatedData EvaluationData(UAuraAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluationData);
