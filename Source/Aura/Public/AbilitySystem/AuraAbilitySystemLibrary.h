@@ -30,4 +30,17 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Custom Property | AuraAbilitySystemLibrary | CharacterClassDefaults")
 	static UCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintPure, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayEffects")
+	static bool IsBlockHit(const FGameplayEffectContextHandle& EffectContextHandle);
+	
+	UFUNCTION(BlueprintPure, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayEffects")
+	static bool IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayEffects")
+	static void SetIsBlockHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockHit);
+
+	UFUNCTION(BlueprintCallable, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayEffects")
+	static void SetIsCriticalHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit);
+
 };
