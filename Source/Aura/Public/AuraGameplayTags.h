@@ -52,6 +52,9 @@ public:
 	 * Damage
 	 */
 	FGameplayTag Damage;
+	FGameplayTag Damage_Fire;
+	
+	TArray<FGameplayTag> DamageTypes;
 	
 	/**
 	 * Hit React
