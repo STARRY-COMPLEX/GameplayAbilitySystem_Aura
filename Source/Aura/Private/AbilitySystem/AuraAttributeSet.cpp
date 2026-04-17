@@ -124,7 +124,7 @@ void UAuraAttributeSet::SetEffectProperties(const struct FGameplayEffectModCallb
 
 void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage, bool bBlockHit, bool bCriticalHit){
 	if (Props.SourceCharacter != Props.TargetCharacter){
-		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0))){
+		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(Props.SourceCharacter->Controller)){
 			PC->ShowDamageNamber(Damage, Props.TargetCharacter, bBlockHit, bCriticalHit);
 		}
 	}	
