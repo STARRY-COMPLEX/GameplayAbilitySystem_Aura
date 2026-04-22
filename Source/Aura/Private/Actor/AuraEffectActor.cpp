@@ -17,6 +17,8 @@ void AAuraEffectActor::BeginPlay(){
 }
 
 void AAuraEffectActor::ApplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass){
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return;		
+	
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if (TargetASC == nullptr) return;
 	
@@ -30,9 +32,15 @@ void AAuraEffectActor::ApplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGa
 	if (bIsInfinite && (InfiniteRemovalPolicy == EEffectRemovalPolicy::EERP_RemoveOnEndOverlap)){
 		ActiveEffectHandles.Add(TargetASC, ActiveEffectHandle);
 	}
+
+	if (!bIsInfinite){
+		Destroy();
+	}
 }
 
 void AAuraEffectActor::OnOverlap(AActor* TargetActor){
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return;
+	
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::EEAP_ApplyOnOverlap){
 		ApplayEffectToTarget(TargetActor, InstantGameplayEffectClass);
 	}
@@ -45,6 +53,8 @@ void AAuraEffectActor::OnOverlap(AActor* TargetActor){
 }
 
 void AAuraEffectActor::OnEndOverlap(AActor* TargetActor){
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return;
+	
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::EEAP_ApplyOnEndOverlap){
 		ApplayEffectToTarget(TargetActor, InstantGameplayEffectClass);
 	}
