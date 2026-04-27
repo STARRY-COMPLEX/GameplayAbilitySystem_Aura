@@ -67,6 +67,14 @@ void AAuraEnemy::Die(){
 	Super::Die();
 }
 
+void AAuraEnemy::SetCombatTarget_Implementation(AActor* InCombatTarget){
+	CombatTarget = InCombatTarget;
+}
+
+AActor* AAuraEnemy::GetCombatTarget_Implementation() const{
+	return CombatTarget;
+}
+
 void AAuraEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount){
 	bHitReacting = NewCount > 0;
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f : BaseWalkSpeed;
