@@ -6,6 +6,8 @@
 #include "AbilitySystem/Abilities/AuraGameplayAbility.h"
 #include "AuraDamageGameplayAbility.generated.h"
 
+struct FTagMontage;
+
 UCLASS()
 class AURA_API UAuraDamageGameplayAbility : public UAuraGameplayAbility
 {
@@ -20,4 +22,7 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Dagage")
 	TMap<FGameplayTag, FScalableFloat> DamageTypes;
+	
+	UFUNCTION(BlueprintPure)
+	FTagMontage GetRandomTagMontageFromArray(const TArray<FTagMontage>& TagMontageArray) const;
 };
