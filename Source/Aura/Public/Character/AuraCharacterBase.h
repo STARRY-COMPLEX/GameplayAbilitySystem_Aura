@@ -40,7 +40,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(EditAnywhere, Category = "Custom Property | Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Custom Property | Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 	
 	UPROPERTY(EditAnywhere, Category = "Custom Property | Combat")
