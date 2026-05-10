@@ -95,8 +95,11 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Custom Property | Dissolve Material")
 	TObjectPtr<UMaterialInstance> WeaponDissolveMaterialInstance;
 	
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Custom Property | Blood Effect")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Custom Property | Combat")
 	UNiagaraSystem* BloodEffect;
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Custom Property | Combat")
+	USoundBase* DeathSound;
 private:
 	UPROPERTY(EditAnywhere, Category = "Custom Property | Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
