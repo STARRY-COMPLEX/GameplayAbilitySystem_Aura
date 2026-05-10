@@ -78,11 +78,19 @@ public:
 	FGameplayTag Effects_HitReact;
 	
 	/**
-	 * Montage
+	 * Combat Socket
 	 */
-	FGameplayTag Montage_Attack_Weapon;
-	FGameplayTag Montage_Attack_RightHand;
-	FGameplayTag Montage_Attack_LeftHand;
+	FGameplayTag CombatSocket_Weapon;
+	FGameplayTag CombatSocket_RightHand;
+	FGameplayTag CombatSocket_LeftHand;
+
+	/**
+	 * Montage Tags
+	 */
+	FGameplayTag Montage_Attack1;
+	FGameplayTag Montage_Attack2;
+	FGameplayTag Montage_Attack3;
+	FGameplayTag Montage_Attack4;
 private:
 	static FAuraGameplayTags GameplayTags;
 };

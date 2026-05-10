@@ -32,6 +32,7 @@ public:
 	virtual AActor* GetAvator_Implementation() override;
 	virtual TArray<FTagMontage> GetAttackMontages_Implementation() override;
 	virtual UNiagaraSystem* GetBloodEffect_Implementation() override;
+	virtual FTagMontage GetTagMontageByTag_Implementation(const FGameplayTag& MontageTag) override;
 	/** end Combat Interface */
 	
 	UFUNCTION(NetMulticast, Reliable)
