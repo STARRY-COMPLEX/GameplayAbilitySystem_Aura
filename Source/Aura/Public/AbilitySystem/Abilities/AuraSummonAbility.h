@@ -18,6 +18,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TArray<FVector> GetSpawnLocations();
 	
+	UFUNCTION(BlueprintPure, Category = "Custom Property | Summoning")
+	TSubclassOf<APawn> GetRandomMinionClass();
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Summoning")
 	int32 NumMinions = 5;
 	
@@ -32,4 +35,5 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Summoning")
 	float SpawnSpread = 90.f;
+	
 };
