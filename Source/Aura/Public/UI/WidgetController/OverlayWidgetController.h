@@ -31,7 +31,7 @@ struct FUiWidgetRow : public FTableRowBase{
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUiWidgetRow, Row);
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbilityInfoSignature, const FAuraAbilityInfo&, Info);
 
 
 UCLASS(BlueprintType, Blueprintable)
@@ -57,6 +57,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category = "Custom Property | GAS | Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;
+	
+	UPROPERTY(BlueprintAssignable, Category = "Custom Property | GAS | Messages")
+	FAbilityInfoSignature AbilityInfoDelegate;
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Custom Property | Widget Data")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
