@@ -37,7 +37,7 @@ void UAuraAbilitySystemComponent::AbilityInputTagHold(const FGameplayTag& InputT
 
 void UAuraAbilitySystemComponent::AbilityInputTagRelease(const FGameplayTag& InputTag){
 	if (!InputTag.IsValid()) return;
-
+	
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities()){
 		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)){
 			AbilitySpecInputReleased(AbilitySpec);
@@ -55,8 +55,9 @@ void UAuraAbilitySystemComponent::ForEachAbility(const FForEachAbility& Delegate
 }
 
 FGameplayTag UAuraAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec){
-	if (!AbilitySpec.Ability){
+	if (AbilitySpec.Ability){
 		for (FGameplayTag Tag : AbilitySpec.Ability.Get()->AbilityTags){
+			UE_LOG(LogAura, Warning, TEXT("AbilityTag Name: %s"), *Tag.GetTagName().ToString());
 			if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities")))){
 				return Tag;
 			}
@@ -67,11 +68,20 @@ FGameplayTag UAuraAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayA
 
 FGameplayTag UAuraAbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec){
 	for (FGameplayTag Tag : AbilitySpec.DynamicAbilityTags){
-		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Input")))){
+		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("InputTag")))){
 			return Tag;
 		}
 	}
 	return FGameplayTag();
+}
+
+void UAuraAbilitySystemComponent::OnRep_ActivateAbilities(){
+	Super::OnRep_ActivateAbilities();
+	
+	if (bStartupAbilitiesGiven){
+		bStartupAbilitiesGiven = true;
+		AbilitiesGivenDelegate.Broadcast(this);
+	}
 }
 
 void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
