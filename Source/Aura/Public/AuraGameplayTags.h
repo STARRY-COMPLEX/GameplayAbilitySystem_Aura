@@ -94,6 +94,11 @@ public:
 	FGameplayTag Montage_Attack2;
 	FGameplayTag Montage_Attack3;
 	FGameplayTag Montage_Attack4;
+	
+	/**
+	 * Cooldown Tags
+	 */
+	FGameplayTag Cooldown_Fire_FireBolt;
 private:
 	static FAuraGameplayTags GameplayTags;
 };

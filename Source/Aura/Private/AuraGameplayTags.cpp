@@ -166,5 +166,10 @@ void FAuraGameplayTags::InitializeNativeGameplayTags(){
 	
 	GameplayTags.Montage_Attack4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Montage.Attack.4"), FString("Attack 4"));
-	
+
+	/**
+	 * Cooldown Tags
+	 */
+	GameplayTags.Cooldown_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Cooldown.Fire.FireBolt"), FString("FireBolt Cooldown Tag"));
 }
