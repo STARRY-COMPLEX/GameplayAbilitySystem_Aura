@@ -60,6 +60,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category = "Custom Property | GAS | Messages")
 	FAbilityInfoSignature AbilityInfoDelegate;
+	
+	UPROPERTY(BlueprintAssignable, Category = "Custom Property | GAS | XP")
+	FOnAttributeChangedSignature OnXPPercentChangedDelegate;
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Custom Property | Widget Data")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
@@ -71,6 +74,8 @@ protected:
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
 	
 	void OnInitializeStartupAbilities(UAuraAbilitySystemComponent* AuraAbilitySystemComponent);
+
+	void OnXPChanged(int32 NewXP) const;
 };
 
 template <typename T>
