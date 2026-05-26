@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ScalableFloat.h"
 #include "Engine/DataAsset.h"
 #include "CharacterClassInfo.generated.h"
 
@@ -25,6 +26,9 @@ struct FCharacterClassDefaultInfo{
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Class Defaults")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Class Defaults")
+	FScalableFloat XPReward = FScalableFloat();
 };
 
 UCLASS()

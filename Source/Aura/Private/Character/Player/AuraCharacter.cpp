@@ -22,6 +22,8 @@ AAuraCharacter::AAuraCharacter(){
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 	
+	CharacterClass = ECharacterClass::ECC_Elementalist;
+	
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 750.0f;
