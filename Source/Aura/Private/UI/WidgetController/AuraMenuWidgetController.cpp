@@ -14,6 +14,10 @@ void UAuraMenuWidgetController::BroadcastInitialValues(){
 	for (TPair<FGameplayTag, FGameplayAttribute(*)()>& Pair : AS->TagsToAttributes){
 		BroadcastAttributeInfo(Pair.Key, Pair.Value());	
 	}
+	
+	AAuraPlayerState* AuraPlayerState = CastChecked<AAuraPlayerState>(PlayerState);
+	AttributePointChangedDelegate.Broadcast(AuraPlayerState->GetAttributePoints());
+	SpellPointChangedDelegate.Broadcast(AuraPlayerState->GetSpellPoints());
 }
 
 void UAuraMenuWidgetController::BindCallbacksToDependences(){
