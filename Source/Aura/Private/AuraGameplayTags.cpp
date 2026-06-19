@@ -156,13 +156,13 @@ void FAuraGameplayTags::InitializeNativeGameplayTags(){
 		FName("Abilities.Status.Equipped"), FString("Equipped Status Tag"));
 	
 	GameplayTags.Abilities_Type_Offensive = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Abilities.Status.Offensive"), FString("Offensive Type Tag"));
+		FName("Abilities.Type.Offensive"), FString("Offensive Type Tag"));
 	
 	GameplayTags.Abilities_Type_Passive = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Abilities.Status.Passive"), FString("Passive Type Tag"));
+		FName("Abilities.Type.Passive"), FString("Passive Type Tag"));
 	
 	GameplayTags.Abilities_Type_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Abilities.Status.None"), FString("None Type Tag"));
+		FName("Abilities.Type.None"), FString("None Type Tag"));
 	
 	/**
 	 * Map of Damage Types to Resistances
