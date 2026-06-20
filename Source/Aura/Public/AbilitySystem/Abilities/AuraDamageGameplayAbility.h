@@ -20,11 +20,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category = "Custom Property | Projectile")
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Dagage")
-	TMap<FGameplayTag, FScalableFloat> DamageTypes;
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	FGameplayTag DamageType;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	FScalableFloat Damage;
 	
 	UFUNCTION(BlueprintPure)
 	FTagMontage GetRandomTagMontageFromArray(const TArray<FTagMontage>& TagMontageArray) const;
-
-	float GetDamageByDamageType(float InLevel, const FGameplayTag& DamageType) const;
 };

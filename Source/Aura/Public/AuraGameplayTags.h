@@ -75,6 +75,16 @@ public:
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
 	
 	/**
+	 * Debuff
+	 */
+	FGameplayTag Debuff_Burn;
+	FGameplayTag Debuff_Stun;
+	FGameplayTag Debuff_Arcane;
+	FGameplayTag Debuff_Physical;
+	
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToDebuffs;
+	
+	/**
 	 * Abilities
 	 */
 	FGameplayTag Abilities_None;
