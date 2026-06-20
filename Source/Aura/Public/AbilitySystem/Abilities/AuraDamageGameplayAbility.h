@@ -26,6 +26,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
 	FScalableFloat Damage;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	float DebuffChance = 20.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	float DebuffDamage = 5.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	float DebuffFrequency = 1.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
+	float DebuffDuration = 5.f;
+	
 	UFUNCTION(BlueprintPure)
 	FTagMontage GetRandomTagMontageFromArray(const TArray<FTagMontage>& TagMontageArray) const;
 };
