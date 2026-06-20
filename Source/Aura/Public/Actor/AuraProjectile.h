@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayEffectTypes.h"
+#include "AuraAbilityTypes.h"
 #include "GameFramework/Actor.h"
 #include "AuraProjectile.generated.h"
 
@@ -23,9 +23,10 @@ public:
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 	
 	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true), Category = "Custom Property | HitEffect")
-	FGameplayEffectSpecHandle DamageEffectSpecHandle;
+	FDamageEffectParams DamageEffectParams;
 protected:
 	virtual void BeginPlay() override;
+	void OnHit();
 	virtual void Destroyed() override;
 	
 	UFUNCTION()
@@ -38,8 +39,6 @@ private:
 	float LifeSpan = 15.f;
 	
 	bool bHit = false;
-	
-	
 	
 	UPROPERTY(EditAnywhere, Category = "Custom Property | HitEffect")
 	TObjectPtr<UNiagaraSystem> ImpactEffect;
