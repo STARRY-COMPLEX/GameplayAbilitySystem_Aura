@@ -39,7 +39,7 @@ protected:
 	float DebuffFrequency = 1.f;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Damage")
-	float DebuffDuration = 5.f;
+	float DebuffDuration = 3.f;
 	
 	UFUNCTION(BlueprintPure)
 	FTagMontage GetRandomTagMontageFromArray(const TArray<FTagMontage>& TagMontageArray) const;
