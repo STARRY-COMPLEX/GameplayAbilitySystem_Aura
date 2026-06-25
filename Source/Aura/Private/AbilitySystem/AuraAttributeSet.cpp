@@ -190,6 +190,11 @@ void UAuraAttributeSet::HandleIncomingDamage(FEffectProperties& Props){
 			FGameplayTagContainer TagContainer;
 			TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
 			Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			
+			const FVector& KnockForce = UAuraAbilitySystemLibrary::GetKnockForce(Props.EffectContextHandle);
+			if (!KnockForce.IsNearlyZero(1.f)){
+				Props.TargetCharacter->LaunchCharacter(KnockForce, true, true);
+			}
 		}
 		const bool bBlockHit = UAuraAbilitySystemLibrary::IsBlockHit(Props.EffectContextHandle);
 		const bool bCriticalHit = UAuraAbilitySystemLibrary::IsCriticalHit(Props.EffectContextHandle);
