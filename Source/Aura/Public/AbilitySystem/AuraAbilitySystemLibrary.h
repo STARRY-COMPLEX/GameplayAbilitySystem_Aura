@@ -111,5 +111,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Custom Property | AuraAbilitySystemLibrary | DamageEffect")
 	static FGameplayEffectContextHandle ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams);
 	
+	UFUNCTION(BlueprintPure, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayMechanics")
+	static TArray<FRotator> EvenlySpaceRotators(const FVector& Forward, const FVector& Axis, float Spread, int32 NumRotators);
+	
+	UFUNCTION(BlueprintPure, Category = "Custom Property | AuraAbilitySystemLibrary | GameplayMechanics")
+	static TArray<FVector> EvenlyRotateVectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumVectors);
+	
 	static int32 GetXPRewardForClassAndLevel(const UObject* WorldContextObject, ECharacterClass CharacterClass, int32 CharacterLevel);
 };
