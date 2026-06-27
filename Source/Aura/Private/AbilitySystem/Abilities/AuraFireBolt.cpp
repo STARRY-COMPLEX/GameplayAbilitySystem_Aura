@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/Abilities/AuraFireBolt.h"
 #include "AuraGameplayTags.h"
+#include "Interaction/CombatInterface.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 FString UAuraFireBolt::GetDescription(int32 Level){
 	const int32 ScaledDamage = Damage.GetValueAtLevel(Level);
@@ -93,4 +95,31 @@ FString UAuraFireBolt::GetNextLevelDescription(int32 Level){
 		FMath::Min(Level, NumProjectiles),
 		ScaledDamage
 		);
+}
+
+void UAuraFireBolt::SpawnProjectiles(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag,
+	bool bOverridePitch, float PitchOverride, AActor* HomingTarget){
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
+	if(!bIsServer) return;
+	
+	const FVector SocketLocation = ICombatInterface::Execute_GetCombatSocketLocation(
+		GetAvatarActorFromActorInfo(), SocketTag);
+	FRotator Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+	if (bOverridePitch) Rotation.Pitch = PitchOverride;
+	
+	const FVector Forward = Rotation.Vector();
+	const FVector LeftOfSpread = Forward.RotateAngleAxis(-ProjectileSpeed / 2.f, FVector::UpVector);
+	const FVector RightOfSpread = Forward.RotateAngleAxis(ProjectileSpeed / 2.f, FVector::UpVector);
+	
+	
+	NumProjectiles = FMath::Min(MaxNumProjectile, GetAbilityLevel());
+	if (NumProjectiles > 1){
+		const float DeltaSpread = ProjectileSpeed / (NumProjectiles - 1);
+		for (int32 i = 0; i < NumProjectiles; i++){
+			const FVector Direction = LeftOfSpread.RotateAngleAxis(DeltaSpread * i, FVector::UpVector);
+			
+		}
+	}else{
+		// Single Projectile
+	}
 }
