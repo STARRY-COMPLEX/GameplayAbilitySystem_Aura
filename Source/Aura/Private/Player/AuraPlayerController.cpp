@@ -52,6 +52,14 @@ void AAuraPlayerController::AutoRun(){
 }
 
 void AAuraPlayerController::CurserTrace(){
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_CursorTrace)){
+		if (LastActor) LastActor->UnHighLightActor();
+		if (ThisActor) ThisActor->UnHighLightActor();
+		LastActor = nullptr;
+		ThisActor = nullptr;
+		
+		return;
+	}
 	GetHitResultUnderCursor(ECC_Visibility, false, CurserHit);
 	if (!CurserHit.bBlockingHit) return;
 	
@@ -83,6 +91,7 @@ void AAuraPlayerController::BeginPlay(){
 }
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag){
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_InputPressed)) return;
 	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)){
 		bTargeting = ThisActor ? true : false;
 		bAutoRunning = false;
@@ -91,6 +100,7 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag){
 }
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag){
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_InputReleased)) return;
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)){
 		if (GetASC()) GetASC()->AbilityInputTagRelease(InputTag);
 		return;
@@ -112,7 +122,10 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag){
 					bAutoRunning = true;
 				}
 			}
-			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ClickNiagaraSystem, CashedDestination);
+			if (GetASC() && !GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_InputPressed))
+			{
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ClickNiagaraSystem, CashedDestination);
+			}
 		}
 		FollowTime = 0.f;
 		bTargeting = false;
@@ -120,6 +133,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag){
 }
 
 void AAuraPlayerController::AbilityInputTagHold(FGameplayTag InputTag){
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_InputHeld)) return;	
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)){
 		if (GetASC()) GetASC()->AbilityInputTagHold(InputTag);
 		return;
@@ -157,6 +171,7 @@ void AAuraPlayerController::SetupInputComponent(){
 }
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue){
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_InputPressed)) return;
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
