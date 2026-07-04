@@ -20,6 +20,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void TraceFirstTarget(const FVector& BeamTargetLocation);
+	
+	UFUNCTION(BlueprintCallable)
+	void StoreAdditionTargets(TArray<AActor*>& OutAdditionalTargets);
 protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Custom Property | Beam")
 	FVector MouseHitLocation;
@@ -32,4 +35,8 @@ protected:
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Custom Property | Beam")
 	TObjectPtr<ACharacter> OwnerCharacter;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Custom Property | Beam")
+	int32 MaxNumShockTargets = 5;
+	
 };
