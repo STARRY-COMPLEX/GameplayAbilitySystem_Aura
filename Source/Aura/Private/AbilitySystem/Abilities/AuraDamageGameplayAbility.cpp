@@ -42,6 +42,10 @@ FDamageEffectParams UAuraDamageGameplayAbility::MakeDamageEffectParamsFromClassD
 	return Params;
 }
 
+float UAuraDamageGameplayAbility::GetDamageAtLevel() const{
+	return Damage.GetValueAtLevel(GetAbilityLevel());
+}
+
 FTagMontage UAuraDamageGameplayAbility::GetRandomTagMontageFromArray(const TArray<FTagMontage>& TagMontageArray) const{
 	if (TagMontageArray.Num() > 0){
 		const int32 Selection = FMath::RandRange(0, TagMontageArray.Num() - 1);
