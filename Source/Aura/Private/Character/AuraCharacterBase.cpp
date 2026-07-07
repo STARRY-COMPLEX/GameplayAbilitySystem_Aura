@@ -20,6 +20,10 @@ AAuraCharacterBase::AAuraCharacterBase()
 	BurnDebuffComponent->SetupAttachment(GetRootComponent());
 	BurnDebuffComponent->DebuffTag = FAuraGameplayTags::Get().Debuff_Burn;
 	
+	StunDebuffComponent = CreateDefaultSubobject<UDebuffNiagaraComponent>(TEXT("Stun Debuff Component"));
+	StunDebuffComponent->SetupAttachment(GetRootComponent());
+	StunDebuffComponent->DebuffTag = FAuraGameplayTags::Get().Debuff_Stun;
+	
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
 	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
@@ -69,6 +73,8 @@ void AAuraCharacterBase::MulticastHandleDeath_Implementation(const FVector& Deat
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Dissolve();
 	bDead = true;
+	BurnDebuffComponent->Deactivate();
+	StunDebuffComponent->Deactivate();
 	OnDeath.Broadcast(this);
 }
 

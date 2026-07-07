@@ -132,6 +132,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UDebuffNiagaraComponent>	BurnDebuffComponent;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDebuffNiagaraComponent>	StunDebuffComponent;
 private:
 	UPROPERTY(EditAnywhere, Category = "Custom Property | Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
